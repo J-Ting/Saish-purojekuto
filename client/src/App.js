@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+// ----------- IMPORTS ----------------
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React from "react";
 
-function App() {
+//components import
+import { Navbar } from "./components/Navbar";
+import { Home } from "./components/Home";
+import { Users } from "./components/Users";
+import { Profile } from "./components/Profile";
+import { PostDetails } from "./components/PostDetails";
+import { Upload } from "./components/Upload";
+import { Loading } from "./components/Loading";
+import { Error } from "./components/Error";
+
+// Auth0 imports
+// import { Auth0Provider } from "@auth0/auth0-react";
+
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <Router>
+      {/* <GlobalStyles> */}
+      {/* <Auth0Provider
+        domain="brighting.us.auth0.com"
+        clientId="23HbJEuy5K4pHfH5eS7qbVkM1b9QdXP4"
+        // redirectUri="http://localhost:3000 "
+        redirectUri={window.location.origin}
+      > */}
+      <Navbar />
+      {/* <LoginButton />
+      <LogoutButton />
+      <UserProfile /> */}
+      {/* </Auth0Provider> */}
+      <Routes>
+        <Route exact path="/" element={<Home />} />
 
-export default App;
+        <Route exact path="/users" element={<Users />} />
+
+        <Route exact path="/profile/:handler" element={<Profile />} />
+
+        <Route exact path="/postDetails/:id" element={<PostDetails />} />
+
+        <Route exact path="/upload" element={<Upload />} />
+
+        <Route exact path="/loading" element={<Loading />} />
+
+        <Route exact path="*" element={<Error />} />
+      </Routes>
+      {/* </GlobalStyles> */}
+    </Router>
+  );
+};
