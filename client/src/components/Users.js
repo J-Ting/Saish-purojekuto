@@ -12,7 +12,7 @@ export const Users = () => {
   const navigate = useNavigate();
 
   return (
-    <>
+    <GlobalContainer>
       {isLoaded ? (
         users.map((user) => {
           return (
@@ -21,6 +21,7 @@ export const Users = () => {
                 <Front>
                   <Img src={user.avatarUrl} />
                 </Front>
+
                 <Back>
                   <p> {user.name}</p>
                   <p>{user.handler}</p>
@@ -32,11 +33,16 @@ export const Users = () => {
       ) : (
         <Loading />
       )}
-    </>
+    </GlobalContainer>
   );
 };
 
 //---------STYLING--------------
+
+const GlobalContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+`;
 
 const Div = styled.div`
   display: flex;
@@ -51,34 +57,32 @@ const Div = styled.div`
 `;
 
 const Box = styled.div`
-  /* position: absolute; */
-  top: 50%;
-  left: 50%;
-  transform: translate(50%, 50%);
-  width: 300px;
+  position: relative;
   height: 200px;
+  width: 200px;
 `;
 
 const Front = styled.div`
   border-radius: 50%;
-  /* float: left; */
+  /* float: left;
   width: 200px;
-  height: 200px;
+  height: 200px; */
 
   /* width: 100%;
   height: 100%; */
   position: absolute;
   top: 0;
   left: 0;
-  transition: 2s;
   backface-visibility: hidden;
   border: 5px solid;
-  transform: perspective(1000px) rotateY(0deg);
   z-index: 2;
+
+  transition: 0.6s linear transform;
+  transform: perspective(1000px) rotateY(0deg);
 
   &:hover {
     transform: perspective(1000px) rotateY(-180deg);
-    z-index: 1;
+    /* z-index: 1; */
   }
 `;
 
@@ -96,15 +100,28 @@ const Back = styled.div`
   transition: 2s;
   backface-visibility: visible;
   border: 5px solid;
-  transform: perspective(1000px) rotateY(0deg);
+  transform: perspective(0) rotateY(0deg);
   background-color: lightblue;
 
   z-index: 1;
 
-  &:hover {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    margin: 0;
+  }
+
+  p + p {
+    margin-top: 10px;
+  }
+
+  /* &:hover {
     transform: perspective(1000px) rotateY(0deg);
     z-index: 1;
-  }
+  } */
 `;
 
 const Img = styled.img`

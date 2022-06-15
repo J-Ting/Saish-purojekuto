@@ -154,6 +154,12 @@ const Container = styled.div`
   /* background-color: red; */
   color: orange;
 
+  background: white;
+  padding: 60px;
+  height: 305px;
+  text-align: center;
+  border-radius: 24px;
+
   // $.tag {}
 `;
 
@@ -224,4 +230,8 @@ const WholePage = styled.div`
   display: flex;
   justify-content: center;
   margin: 0;
+
+  justify-content: center;
+  display: flex;
+  align-items: center;
 `;

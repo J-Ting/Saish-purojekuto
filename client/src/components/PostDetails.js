@@ -15,8 +15,7 @@ export const PostDetails = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [comment, setComment] = useState("");
   const [commentPosted, setCommentPosted] = useState(false);
-  const [postDeleted, setPostDeleted] = useState(false);
-  const [commentDeleted, setCommentDeleted] = useState(false);
+
   const [isLiked, setIsLiked] = useState(false);
   const { loggedInUser } = useContext(SignedinContext);
   const { setTrigger, trigger } = useContext(PostsContext);
@@ -151,10 +150,10 @@ export const PostDetails = () => {
           <h1>{singlePost.title}</h1>
           <p>
             by:{" "}
-            <span onClick={() => navigate(`/profile/${singlePost.uploadedBy}`)}>
+            <Span onClick={() => navigate(`/profile/${singlePost.uploadedBy}`)}>
               {" "}
               {singlePost.uploadedBy}
-            </span>{" "}
+            </Span>{" "}
           </p>
           <Img
             src={singlePost.images.map((pic) => {
@@ -183,7 +182,16 @@ export const PostDetails = () => {
               {[...singlePost.comments].reverse().map((comment) => {
                 return (
                   <CommentDiv>
-                    <CommentByP>{comment.commentedBy} said:</CommentByP>
+                    <CommentByP>
+                      <Span
+                        onClick={() =>
+                          navigate(`/profile/${comment.commentedBy}`)
+                        }
+                      >
+                        {comment.commentedBy}
+                      </Span>{" "}
+                      said:
+                    </CommentByP>
                     <p>{comment.comment}</p>
                     <CommentDateP>on {comment.commentedAt}</CommentDateP>
 
@@ -212,7 +220,7 @@ export const PostDetails = () => {
             <></>
           )}
           {isAuthenticated && (
-            <form onSubmit={handleComment}>
+            <Form onSubmit={handleComment}>
               <CommentBox
                 type="text"
                 placeholder="comment"
@@ -221,10 +229,10 @@ export const PostDetails = () => {
                   setComment(e.target.value);
                 }}
               />{" "}
-              <button type="submit" disabled={!comment ? true : false}>
+              <AddCommentBtn type="submit" disabled={!comment ? true : false}>
                 Add Comment
-              </button>
-            </form>
+              </AddCommentBtn>
+            </Form>
           )}
         </>
       ) : (
@@ -241,6 +249,11 @@ const Img = styled.img`
   border-radius: 20px;
 `;
 
+const Span = styled.span`
+  font-weight: 500;
+  cursor: pointer;
+`;
+
 const CommentDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -249,16 +262,16 @@ const CommentDiv = styled.div`
   background-color: light grey;
   width: 600px;
   border: solid 2px lightblue;
-  padding: 20px;
   margin: 20px;
   position: relative;
+  padding: 34px 20px 20px;
 `;
 
 const CommentBox = styled.textarea`
-  width: 40%;
-  height: 100px;
-  padding: 10px;
-  background-color: lightgrey;
+  width: 624px;
+  border-radius: 10px;
+  height: 49px;
+  background: transparent;
 `;
 
 const PageContainer = styled.div`
@@ -298,13 +311,14 @@ const Button = styled.button`
 const CommentByP = styled.p`
   position: absolute;
   top: 0;
-  left: 0;
+  left: 20px;
+  font-weight: 500;
 `;
 
 const CommentDateP = styled.p`
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 10px;
+  right: 20px;
 `;
 
 const DeleteBtn = styled.button`
@@ -331,4 +345,23 @@ const DeleteBtn = styled.button`
       fill: #34495e;
     }
   }
+`;
+
+const Form = styled.form`
+  display: flex;
+
+  flex-direction: column;
+
+  width: 44.72vw;
+`;
+
+const AddCommentBtn = styled.button`
+  max-width: 130px;
+  border: none;
+  background: orange;
+  color: black;
+  margin-top: 20px;
+  padding: 12px;
+  border-radius: 24px;
+  cursor: pointer;
 `;
