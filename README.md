@@ -16,4 +16,4 @@
 * ### Homepage
  The homepage is the first page that you will land on, it contains all the images posted, ranging from the latest post to the oldest.
 
-*### User
+* ### User
